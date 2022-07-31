@@ -48,10 +48,29 @@ const SidebarLayout = ({ title, children }) => {
           </ul>
         </div>
       </aside>
-      <main className="main-wrapper">
-        {title && <h1>{title}</h1>}
+      <main className="main-wrapper" style={{position: "relative"}}>
+        <div className="main-wrapper-content">
+          {title && <h1>{title}</h1>}
 
-        <div className="content">{children}</div>
+          <div className="content">{children}</div>
+        </div>
+        
+      <footer
+        style={{
+          width: "100%",
+          textAlign: "center",
+          boxShadow: "var(--bs-gray)",
+          borderTop: "1px solid #F1F5F9",
+          background: "white"
+        }}
+        className="landing-footer"
+      >
+        <div className="flex flex-center">
+          <img src="./assets/hashnode.png" alt="" />
+          <div className="m-md">X</div>
+          <img src="./assets/planetscale.jpg" alt="" />
+        </div>
+      </footer>
       </main>
     </div>
   );

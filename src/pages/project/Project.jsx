@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Loader from "../../components/Loader";
 import MarkdownEditor from "../../components/MarkdownEditor";
 import { PROJECT_QUESTIONS } from "../../features/project/data/projectQuestions";
 import { getOneProject } from "../../features/project/services/getOneProject";
@@ -13,8 +14,10 @@ const Project = () => {
   const [project, setProject] = useState({ name: "Project", answer: "" });
   const [answer, setAnswer] = useState(PROJECT_QUESTIONS);
   const [loading, setLoading] = useState("");
+  const [fetchLoading, setFetchLoading] = useState(false);
 
   const getProject = async () => {
+    setFetchLoading(true);
     try {
       const res = await getOneProject(id);
       setProject(res.data.project);
@@ -23,6 +26,8 @@ const Project = () => {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setFetchLoading(false);
     }
   };
 
@@ -43,6 +48,10 @@ const Project = () => {
 
       setLoading(false);
     }
+  }
+
+  if(fetchLoading) {
+    return <SidebarLayout><Loader></Loader></SidebarLayout>
   }
 
   return (
